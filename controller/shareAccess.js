@@ -94,3 +94,24 @@ export const removeAccess = async(req,res)=>{
         })
     }
 }
+
+export const getRecordByURI = async(req,res)=>{
+    try {
+        const {pinataHash} = req.body;
+        const record = await accessRecord.find({pinataHash});
+        if(record)
+        {
+            res.status(201).send({
+                success:true,
+                message:"records retrieved",
+                record
+            })
+        }
+    } catch (error) {
+        res.status(500).send({
+            success:false,
+            message:"error while accessing record by uri",
+            error
+        })
+    }
+}
